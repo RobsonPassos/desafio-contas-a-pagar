@@ -19,13 +19,11 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Aqui você pode carregar o usuário do banco de dados
-
         String encodedPassword = passwordEncoder.encode("admin");
 
         return User.withUsername("admin")
                 .password(encodedPassword) // Define a senha codificada
                 .roles("USER")
                 .build();
-//        return new User("admin", encodedPassword, new ArrayList<>());
     }
 }

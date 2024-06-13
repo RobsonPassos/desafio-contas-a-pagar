@@ -1,9 +1,7 @@
 package br.com.bancorob.desafiocontasapagar.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 import br.com.bancorob.desafiocontasapagar.application.ContaService;
-import br.com.bancorob.desafiocontasapagar.controller.ContaImportController;
 import br.com.bancorob.desafiocontasapagar.domain.entity.Conta;
 import br.com.bancorob.desafiocontasapagar.domain.enums.Situacao;
 import org.junit.jupiter.api.Test;
