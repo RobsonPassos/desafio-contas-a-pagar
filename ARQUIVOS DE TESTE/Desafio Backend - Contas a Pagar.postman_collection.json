@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "76117a06-53ca-4446-8b5f-f1e8a9711be1",
+		"name": "Desafio Backend - Contas a Pagar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "13955586"
+	},
+	"item": [
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "Obter Token JWT",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"admin\",\"password\":\"admin\"}"
+						},
+						"url": "http://localhost:8080/api/authenticate"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contas a Pagar",
+			"item": [
+				{
+					"name": "Cadastrar Conta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"dataVencimento\":\"2024-06-30\",\"valor\":100.00,\"descricao\":\"Conta de água\",\"situacao\":\"A_PAGAR\"}"
+						},
+						"url": "{{baseUrl}}/api/contas"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Conta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"dataVencimento\":\"2024-06-30\",\"dataPagamento\":\"2024-06-10\",\"valor\":150.00,\"descricao\":\"Conta de água atualizada\",\"situacao\":\"PAGO\"}"
+						},
+						"url": "{{baseUrl}}/api/contas/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar Situação da Conta",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"A_PAGAR\""
+						},
+						"url": "{{baseUrl}}/api/contas/1/situacao"
+					},
+					"response": []
+				},
+				{
+					"name": "Obter Lista de Contas a Pagar",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": "{{baseUrl}}/api/contas"
+					},
+					"response": []
+				},
+				{
+					"name": "Obter Conta por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": "{{baseUrl}}/api/contas/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Obter Valor Total Pago por Período",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/contas/total-paid?startDate=2024-06-01&endDate=2024-06-30",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"contas",
+								"total-paid"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-06-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-06-30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Importar Lote de Contas via CSV",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "fsdfsd",
+									"type": "file",
+									"src": "/C:/Users/robso/Downloads/Desafio TOTVS/cadastro contas a pagar.csv"
+								}
+							]
+						},
+						"url": "{{baseUrl}}/api/contas/import"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTcxODMwNjI4MiwiaWF0IjoxNzE4MjcwMjgyfQ.wbd6HpHhQ4VidGEWExM_iq_viRo6Gi9FIMfJmIKprr0",
+			"type": "string"
+		}
+	]
+}
